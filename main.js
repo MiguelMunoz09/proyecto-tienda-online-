@@ -5,12 +5,15 @@ const mobilemenu = document.querySelector ('.mobile-menu')
 const menucarritoIcon = document.querySelector ('.navbar-shopping-cart');
 const aside = document.querySelector ('.product-detail');
 const cardscontainer = document.querySelector('.cards-container');
+const productdetail = document.querySelector('.productdetail'); 
+const productcloseicon = document.querySelector ('.product-close');
+
 
 
 navemail.addEventListener ('click', toggleDesktopmenu );
 hamburgermenu.addEventListener ('click', togglemobilemenu );
 menucarritoIcon.addEventListener ('click', toogglecarritoicon);
-
+productcloseicon.addEventListener ('click', productcloseiconaside);
 
 function toggleDesktopmenu () {
     
@@ -30,6 +33,8 @@ function togglemobilemenu (){
         aside.classList.add ('inactive');
     }
 
+    productcloseiconaside ();
+
     mobilemenu.classList.toggle ('inactive');
 
 }
@@ -48,6 +53,15 @@ function toogglecarritoicon ( ) {
 
          if (desktopmenu) {
             desktopmenu.classList.add('inactive')
+         }
+
+         const productcloseicon = productdetail.classList.contains ('inactive');
+    
+
+         if (!productcloseicon) {
+         productdetail.classList.add ('inactive');
+
+
          }
 }
 
@@ -72,6 +86,15 @@ productList.push({
 });
 
 
+function openproductdetailaside () {
+   aside.classList.add('inactive');
+   productdetail.classList.remove('inactive')
+}
+
+
+function productcloseiconaside (){
+  productdetail.classList.add('inactive')
+}
 
 //funcion que permite agregar cards infinitas
 
@@ -83,7 +106,10 @@ function renderProducts(arr) {
     // product= {name, price, image} -> product.image
     const productImg = document.createElement('img');
     productImg.setAttribute('src', product.image);
-  
+    productImg.addEventListener('click', openproductdetailaside);
+
+
+
     const productInfo = document.createElement('div');
     productInfo.classList.add('product-info');
   
@@ -114,3 +140,10 @@ function renderProducts(arr) {
 }
 
 renderProducts(productList);
+
+
+//para conectar la imagen con el aside de detalles del producto
+
+
+
+
